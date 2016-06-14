@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609233827) do
+ActiveRecord::Schema.define(version: 20160614084459) do
 
   create_table "messages", force: :cascade do |t|
     t.text     "text",       limit: 65535
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20160609233827) do
     t.integer  "age",         limit: 4
     t.integer  "login_time",  limit: 4
     t.integer  "facebook_id", limit: 4
+    t.string   "gender",      limit: 255
   end
 
 end
