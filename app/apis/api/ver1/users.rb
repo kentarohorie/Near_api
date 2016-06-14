@@ -21,7 +21,11 @@ module API
 
       desc 'POST /api/v1/users/create'
       post '/users/create', jbuilder: 'api/ver1/users/create' do
-        @user = User.create(create_params)
+        if User.isRegisterBefore(params[:facebook_id])
+          @user = User.where(facebook_id: params[:facebook_id])[0]
+        else
+          @user = User.create(create_params)
+        end
       end
 
       desc 'GET /api/v1/users/:id'
