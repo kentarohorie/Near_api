@@ -8,6 +8,10 @@ module API
         def create_params
           ActionController::Parameters.new(params).permit(:facebook_id, :age, :gender, :name)
         end
+
+        def set_user
+          @user = User.find(params[:id])
+        end
       end
 
       desc 'GET /api/v1/users'
@@ -17,7 +21,16 @@ module API
 
       desc 'POST /api/v1/users/create'
       post '/users/create', jbuilder: 'api/ver1/users/create' do
-        @user = User.create(create_params)
+        if User.isRegisterBefore(params[:facebook_id])
+          @user = User.where(facebook_id: params[:facebook_id])[0]
+        else
+          @user = User.create(create_params)
+        end
+      end
+
+      desc 'GET /api/v1/users/:id'
+      get '/users/:id', jbuilder: 'api/ver1/users/show' do
+        set_user
       end
 
     end
