@@ -6,7 +6,7 @@ module API
 
       helpers do
         def create_params
-          ActionController::Parameters.new(params).permit(:facebook_id, :age, :gender, :name)
+          ActionController::Parameters.new(params).permit(:facebook_id, :age, :gender, :name, :latitude, :longitude)
         end
 
         def set_user
