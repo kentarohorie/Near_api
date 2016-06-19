@@ -9,6 +9,10 @@ module API
           ActionController::Parameters.new(params).permit(:facebook_id, :age, :gender, :name, :latitude, :longitude)
         end
 
+        def update_params
+          ActionController::Parameters.new(params).permit(:id, :age, :name, :latitude, :longitude)
+        end
+
         def set_user
           @user = User.find(params[:id])
         end
@@ -31,6 +35,12 @@ module API
       desc 'GET /api/v1/users/:id'
       get '/users/:id', jbuilder: 'api/ver1/users/show' do
         set_user
+      end
+
+      desc 'PUT /api/v1/users/:id/'
+      put '/users/:id', jbuilder: 'api/ver1/users/update' do
+        @user = User.find(params[:id])
+        @user.update(update_params)
       end
 
     end
