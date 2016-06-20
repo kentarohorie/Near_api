@@ -13,14 +13,17 @@ module API
           ActionController::Parameters.new(params).permit(:id, :age, :name, :latitude, :longitude)
         end
 
-        def set_user
-          @user = User.find(params[:id])
+        def current_user
+          if request.headers["Fbid"]
+            @current_user ||= User.find_by(facebook_id: request.headers["Fbid"])
+          end
+          return @current_user
         end
       end
 
       desc 'GET /api/v1/users'
       get '/users', jbuilder: 'api/ver1/users/index' do
-        @users = User.all
+        @users_distances = User.get_distance_users(current_user, User.where.not(id: current_user.id))
       end
 
       desc 'POST /api/v1/users/create'
@@ -34,7 +37,7 @@ module API
 
       desc 'GET /api/v1/users/:id'
       get '/users/:id', jbuilder: 'api/ver1/users/show' do
-        set_user
+        @user = User.find(params[:id])
       end
 
       desc 'PUT /api/v1/users/:id/'
