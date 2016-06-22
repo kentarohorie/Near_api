@@ -4,5 +4,6 @@ json.array! @users_distances do |hash|
   json.gender hash[:user].gender
   json.age hash[:user].age
   json.fbID hash[:user].facebook_id
+  json.loginTime hash[:user].login_time
   json.distance hash[:distance]
 end
