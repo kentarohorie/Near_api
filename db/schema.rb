@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622075152) do
+ActiveRecord::Schema.define(version: 20160704062502) do
 
   create_table "messages", force: :cascade do |t|
     t.text     "text",       limit: 65535
@@ -37,9 +37,6 @@ ActiveRecord::Schema.define(version: 20160622075152) do
     t.string   "name",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "greeting",    limit: 255
-    t.string   "work",        limit: 255
-    t.string   "school",      limit: 255
     t.string   "address",     limit: 255
     t.string   "status",      limit: 255
     t.string   "location",    limit: 255
@@ -49,6 +46,9 @@ ActiveRecord::Schema.define(version: 20160622075152) do
     t.string   "latitude",    limit: 255
     t.string   "longitude",   limit: 255
     t.string   "login_time",  limit: 255
+    t.text     "greeting",    limit: 65535
+    t.string   "work",        limit: 255,   default: ""
+    t.string   "school",      limit: 255,   default: ""
   end
 
 end

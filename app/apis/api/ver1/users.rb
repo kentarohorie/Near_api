@@ -10,7 +10,7 @@ module API
         end
 
         def update_params
-          ActionController::Parameters.new(params).permit(:id, :age, :name, :latitude, :longitude, :login_time)
+          ActionController::Parameters.new(params).permit(:id, :age, :name, :latitude, :longitude, :login_time, :work, :school, :greeting)
         end
 
         def current_user
