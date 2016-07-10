@@ -9,6 +9,8 @@ module API
       formatter :json, Grape::Formatter::Jbuilder
 
       mount API::Ver1::Users
+      mount API::Ver1::Rooms
+      mount API::Ver1::Messages
 
       route :any, '*path' do
         error! I18n.t('grape.errors.not_found'), 404
