@@ -42,3 +42,4 @@ group :development do
 end
 
 gem 'pry-rails'
+gem 'websocket-rails'
