@@ -27,7 +27,7 @@ class Room < ActiveRecord::Base
     messages = Message.where(room_id: self.id)
     messages_hash_array = []
     messages.each do |message|
-      hash = { message: message.message, is_current?: is_current_user?(send_user_id, message) }
+      hash = { message: message.message, is_current?: is_current_user?(send_user_id, message), sent_time: message.created_at }
       messages_hash_array << hash
     end
     return messages_hash_array

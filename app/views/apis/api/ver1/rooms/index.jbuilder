@@ -15,6 +15,7 @@ json.array! @rooms do |room|
     messagesElement.array! room[:messages] do |message|
       json.message message[:message]
       json.isCurrent message[:is_current?]
+      json.sentTime message[:sent_time]
     end
   end
 end
