@@ -23,7 +23,9 @@ module API
 
       desc 'GET /api/v1/users'
       get '/users', jbuilder: 'api/ver1/users/index' do
-        @users_distances = User.get_distance_users(current_user, User.where.not(id: current_user.id))
+        blocking_users = User.get_blocking_users(current_user.facebook_id)
+        except_user = User.where.not(id: current_user.id) - blocking_users
+        @users_distances = User.get_distance_users(current_user, except_user)
       end
 
       desc 'POST /api/v1/users/create'
@@ -44,6 +46,11 @@ module API
       put '/users/:id', jbuilder: 'api/ver1/users/update' do
         @user = User.find(params[:id])
         @user.update(update_params)
+      end
+
+      desc 'POST /api/v1/users/block/:id'
+      post '/users/block/:id' do
+        BlockUser.where(user_id: current_user.facebook_id, blocked_user_id: params[:id]).first_or_create
       end
 
     end

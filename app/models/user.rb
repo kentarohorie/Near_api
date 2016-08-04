@@ -47,4 +47,13 @@ class User < ActiveRecord::Base
     user_distance_hash.sort {|(k1, v1), (k2, v2)| v1 <=> v2 }.map { |key, v| { user: User.find(key.to_i), distance: v } }
   end
 
+  def self.get_blocking_users(facebook_id)
+  blocking_users = BlockUser.where(user_id: facebook_id).map { |record| get_user(record.blocked_user_id) }
+  end
+
+  private
+  def self.get_user(facebook_id)
+    User.find_by(facebook_id: facebook_id)
+  end
+
 end
